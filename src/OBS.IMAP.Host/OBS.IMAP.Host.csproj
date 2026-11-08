@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>obs-imap</AssemblyName>
+    <RuntimeIdentifiers>win-x64;linux-x64</RuntimeIdentifiers>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="ModelContextProtocol.AspNetCore" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
+    <ProjectReference Include="../OBS.IMAP.Core/OBS.IMAP.Core.csproj" />
+    <ProjectReference Include="../OBS.IMAP.Infrastructure/OBS.IMAP.Infrastructure.csproj" />
+    <ProjectReference Include="../OBS.IMAP.MCP/OBS.IMAP.MCP.csproj" />
+  </ItemGroup>
+</Project>

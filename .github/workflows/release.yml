@@ -1,0 +1,55 @@
+name: Package standalone artifacts
+
+on:
+  workflow_dispatch:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            rid: win-x64
+          - os: ubuntu-latest
+            rid: linux-x64
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    env:
+      DOTNET_CLI_TELEMETRY_OPTOUT: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+      - run: dotnet restore OBS-IT.IMAP.slnx --locked-mode
+      - run: dotnet test OBS-IT.IMAP.slnx --no-restore --configuration Release
+      - name: Build standalone package, notices, SPDX inventory and checksums
+        shell: pwsh
+        run: |
+          $version = if ($env:GITHUB_REF_TYPE -eq 'tag') { $env:GITHUB_REF_NAME -replace '^v', '' } else { '0.1.0' }
+          ./scripts/Publish.ps1 -RuntimeIdentifier '${{ matrix.rid }}' -Version $version
+          "PACKAGE_VERSION=$version" >> $env:GITHUB_ENV
+      - name: Standalone startup smoke test
+        shell: pwsh
+        run: |
+          $exe = if ('${{ matrix.rid }}' -eq 'win-x64') { 'obs-imap.exe' } else { 'obs-imap' }
+          & "./artifacts/releases/obs-imap-${env:PACKAGE_VERSION}-${{ matrix.rid }}/$exe" --help
+          if ($LASTEXITCODE -ne 0) { throw 'Standalone smoke test failed.' }
+      - uses: actions/upload-artifact@v4
+        with:
+          name: obs-imap-${{ matrix.rid }}
+          path: |
+            artifacts/releases/*.zip
+            artifacts/releases/*.tar.gz
+            artifacts/releases/*.sha256
+          if-no-files-found: error
+          retention-days: 14
+
+# This workflow builds reviewable artifacts only. It never creates a public release,
+# uploads container images, or publishes packages to external registries.

@@ -1,0 +1,27 @@
+{
+  "Connector": {
+    "Accounts": [
+      {
+        "Id": "personal",
+        "DisplayName": "Personal mail",
+        "Host": "imap.example.net",
+        "Port": 993,
+        "Security": "SslOnConnect",
+        "Username": "user@example.net",
+        "Authentication": "Password",
+        "CredentialReference": "env:OBS_IMAP_PERSONAL_PASSWORD"
+      }
+    ]
+  },
+  "Remote": {
+    "Issuer": "https://identity.example.net/realms/mail",
+    "Audience": "https://mail-mcp.example.net/mcp",
+    "ResourceUrl": "https://mail-mcp.example.net/mcp",
+    "RequiredScope": "mail.read",
+    "ListenAddress": "0.0.0.0",
+    "Port": 8080,
+    "AllowedHosts": ["mail-mcp.example.net"],
+    "AllowedOrigins": [],
+    "Grants": [{ "Subject": "replace-with-stable-identity-subject", "AccountIds": ["personal"] }]
+  }
+}

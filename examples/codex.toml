@@ -1,0 +1,12 @@
+# Use a fully qualified executable and configuration path. Windows paths can use
+# TOML literal strings, for example 'C:\Tools\obs-imap.exe'. No secret values here.
+[mcp_servers.obs_imap]
+command = "/absolute/path/obs-imap"
+args = ["--transport", "stdio", "--config", "/absolute/path/accounts.json"]
+# Forward only the credential variable needed by the account configuration.
+env_vars = ["OBS_IMAP_PERSONAL_PASSWORD"]
+
+# For a separate remote deployment, configure this instead of the stdio entry:
+# [mcp_servers.obs_imap_remote]
+# url = "https://mail-mcp.example.net/mcp"
+# Then run: codex mcp login obs_imap_remote

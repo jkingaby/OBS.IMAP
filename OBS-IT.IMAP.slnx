@@ -1,0 +1,18 @@
+<Solution>
+  <Folder Name="/spikes/">
+    <Project Path="spikes/OBS.IMAP.Feasibility/OBS.IMAP.Feasibility.csproj" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/OBS.IMAP.Core/OBS.IMAP.Core.csproj" />
+    <Project Path="src/OBS.IMAP.Host/OBS.IMAP.Host.csproj" />
+    <Project Path="src/OBS.IMAP.Infrastructure/OBS.IMAP.Infrastructure.csproj" />
+    <Project Path="src/OBS.IMAP.MCP/OBS.IMAP.MCP.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/OBS.IMAP.Core.Tests/OBS.IMAP.Core.Tests.csproj" />
+    <Project Path="tests/OBS.IMAP.Feasibility.Tests/OBS.IMAP.Feasibility.Tests.csproj" />
+    <Project Path="tests/OBS.IMAP.Infrastructure.Tests/OBS.IMAP.Infrastructure.Tests.csproj" />
+    <Project Path="tests/OBS.IMAP.Integration.Tests/OBS.IMAP.Integration.Tests.csproj" />
+    <Project Path="tests/OBS.IMAP.MCP.Tests/OBS.IMAP.MCP.Tests.csproj" />
+  </Folder>
+</Solution>

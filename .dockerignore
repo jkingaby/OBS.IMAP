@@ -1,0 +1,12 @@
+**/bin
+**/obj
+.local
+.vs
+.git
+.env
+.env.*
+local.json
+accounts.json
+**/*.secrets.json
+artifacts
+TestResults

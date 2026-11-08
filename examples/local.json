@@ -1,0 +1,21 @@
+{
+  "Connector": {
+    "Accounts": [
+      {
+        "Id": "personal",
+        "DisplayName": "Personal mail",
+        "Host": "imap.example.net",
+        "Port": 993,
+        "Security": "SslOnConnect",
+        "Username": "user@example.net",
+        "Authentication": "Password",
+        "CredentialReference": "env:OBS_IMAP_PERSONAL_PASSWORD"
+      }
+    ]
+  },
+  "Local": {
+    "AllowedAccountIds": [
+      "personal"
+    ]
+  }
+}

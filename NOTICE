@@ -1,0 +1,9 @@
+OBS-IT IMAP Connector
+Copyright 2026 OBS-IT
+
+Licensed under the Apache License, Version 2.0. See LICENSE.
+OBS-IT names and marks are not licensed by this notice.
+
+This product uses third-party software. Its dependencies remain subject to
+their respective licenses and notices. See THIRD-PARTY-NOTICES.md and the
+NuGet lock files for the tested dependency graph.

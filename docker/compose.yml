@@ -1,0 +1,19 @@
+services:
+  imap:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    command: ["--transport", "http", "--config", "/config/accounts.json"]
+    ports:
+      - "127.0.0.1:8080:8080"
+    volumes:
+      - "../examples/remote.json:/config/accounts.json:ro"
+    env_file:
+      - path: ../.env
+        required: true
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    pids_limit: 128
+    mem_limit: 256m
+    restart: unless-stopped

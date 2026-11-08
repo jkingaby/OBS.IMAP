@@ -1,0 +1,19 @@
+From: Bob <bob@example.test>
+To: Fixture <fixture@example.test>
+Subject: fixture two
+Message-ID: <two@example.test>
+In-Reply-To: <one@example.test>
+References: <one@example.test>
+Date: Sun, 25 Oct 2026 10:01:00 +0000
+MIME-Version: 1.0
+Content-Type: multipart/alternative; boundary=alternative
+
+--alternative
+Content-Type: text/plain; charset=utf-8
+
+Plain fixture message two with Unicode: æøå.
+--alternative
+Content-Type: text/html; charset=utf-8
+
+<p>HTML fixture message two.</p>
+--alternative--

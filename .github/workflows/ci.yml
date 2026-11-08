@@ -1,0 +1,38 @@
+name: Build and test
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    env:
+      DOTNET_CLI_TELEMETRY_OPTOUT: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+      - run: dotnet restore OBS-IT.IMAP.slnx --locked-mode
+      - shell: pwsh
+        run: ./scripts/Check-Documentation.ps1
+      - run: dotnet test OBS-IT.IMAP.slnx --no-restore --configuration Release
+
+  real-imap:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -f docker/integration/Dockerfile -t obs-imap-integration .
+      - run: docker run --rm obs-imap-integration
+      - run: docker build -f docker/Dockerfile -t obs-imap .
+      - run: docker run --rm --read-only --network none --cap-drop ALL --security-opt no-new-privileges obs-imap --help
